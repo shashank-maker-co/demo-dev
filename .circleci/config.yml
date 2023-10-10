@@ -3,17 +3,20 @@ version: 2.1
 orbs:
   node: circleci/node@5.0.2
 
-jobs:
-  say-hello:
-    docker:
-      - image: cimg/base:stable
+commands:
+  run-node-app:
+    parameters:
+      port:
+        type: integer # specify the type of the parameter
+        default: 3000 # specify the default value of the parameter
     steps:
-      - checkout
       - node/install
       - run:
           name: "Run node app"
           command: "npm install && node app"
-workflows:
-  say-hello-workflow:
-    jobs:
-      - say-hello
+          environment:
+            PORT: << parameters.port >> # use the parameter value for PORT
+
+jobs:
+  say-hello:
+    executor: node/default
