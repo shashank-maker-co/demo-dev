@@ -1,10 +1,15 @@
 version: 2.1
+
+orbs:
+  node: circleci/node@5.0.2
+
 jobs:
   say-hello:
     docker:
       - image: cimg/base:stable
     steps:
       - checkout
+      - node/install
       - run:
           name: "Run node app"
           command: "npm install && node app"
