@@ -13,10 +13,16 @@ jobs:
           node-version: "14.17.6"
       - run:
           name: "Run node app"
-          command: "npm install && node app"
+          command: |
+            npm install
+            PORT=$(shuf -i 8081-65535 -n 1)
+            echo "Starting server on port $PORT"
+            node app --port $PORT
+          environment:
+            PORT: 8080
       - run:
           name: "Stop web server"
-          command: "kill $(lsof -t -i:8080) || true"
+          command: "sleep 2m && kill $(lsof -t -i:$PORT) || true"
 workflows:
   say-hello-workflow:
     jobs:
