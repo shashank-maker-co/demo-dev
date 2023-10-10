@@ -14,6 +14,8 @@ jobs:
       - run:
           name: "Run node app"
           command: "npm install && node app"
+      - store_artifacts:
+          path: dist
 workflows:
   say-hello-workflow:
     jobs:
