@@ -14,8 +14,9 @@ jobs:
       - run:
           name: "Run node app"
           command: "npm install && node app"
-      - store_artifacts:
-          path: dist
+      - run:
+          name: "Stop web server"
+          command: "kill $(lsof -t -i:8080) || true"
 workflows:
   say-hello-workflow:
     jobs:
