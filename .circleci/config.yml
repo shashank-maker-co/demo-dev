@@ -27,6 +27,7 @@ jobs:
       - checkout:
           git:
             url: https://github.com/shashank-maker-co/demo-test.git
+            ref: main
           path: ~/demo-test
       - run:
           name: "Install dependencies"
