@@ -16,6 +16,8 @@ jobs:
           name: Clone test repository
           command: | 
             git clone --branch main https://github.com/shashank-maker-co/demo-test.git
+      - node/install:
+          node-version: "14.17.6"
       - run:
           name: "Install dependencies"
           command: npm install
