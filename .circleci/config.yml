@@ -4,13 +4,25 @@ orbs:
   node: circleci/node@5.0.2
 
 jobs:
-  deploy:
-    executor: node/default
+  say-hello:
+    executor: node/default 
+    working_directory: ~/repo
     steps:
       - checkout
-      - run: echo "Deploying code using https://github.com/shashank-maker-co/demo-dev"
-  test:
+      - node/install: 
+          node-version: "14.17.6"
+      - run:
+          name: "Run node app"
+          command: |
+            npm install
+            PORT=$(shuf -i 8081-65535 -n 1)
+            echo "Starting server on port $PORT"
+            # node app --port $PORT
+          environment:
+            PORT: 8080
+  run-tests:
     executor: node/default
+    working_directory: ~/demo-test
     steps:
       - checkout:
           git:
@@ -23,11 +35,10 @@ jobs:
       - run:
           name: "Run tests"
           command: npx playwright test
-
 workflows:
-  deploy-and-test:
+  say-hello-workflow:
     jobs:
-      - deploy
-      - test:
+      - say-hello
+      - run-tests:
           requires:
-            - deploy
+            - say-hello
