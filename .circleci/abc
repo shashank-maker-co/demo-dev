@@ -1,0 +1,53 @@
+version: 2.1
+
+orbs:
+  node: circleci/node@5.0.2
+
+jobs:
+  say-hello:
+    executor: node/default 
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - node/install: 
+          node-version: "14.17.6"
+      - run:
+          name: "Run node app"
+          command: |
+            npm install
+            PORT=$(shuf -i 8081-65535 -n 1)
+            echo "Starting server on port $PORT"
+            # node app --port $PORT
+          environment:
+            PORT: 8080
+
+  run-tests:
+    executor: node/default
+    working_directory: ~/demo-test
+    environment:
+      CIRCLE_REPOSITORY_URL: git@github.com:shashank-maker-co/demo-test.git
+    steps:
+      - checkout:
+          git:
+            url: https://github.com/shashank-maker-co/demo-test.git
+            ref: main
+          path: ~/demo-test
+      - run:
+          name: "Install dependencies"
+          command: npm install
+      - run:
+          name: "Run tests"
+          command: npx playwright test
+      - add_ssh_keys:
+          fingerprints:
+            - "SHA256:oRlyzBevSnWyCSreaZjRojcHPnshLH4gf9asiDRz3F4"
+workflows:
+  say-hello-workflow:
+    jobs:
+      - say-hello
+      - run-tests:
+          requires:
+            - say-hello
+          filters:
+            branches:
+              only: main
