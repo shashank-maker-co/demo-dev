@@ -1,6 +1,4 @@
 version: 2.1
-
-# Define the jobs we want to run for this project
 jobs:
   build:
     docker:
@@ -11,13 +9,15 @@ jobs:
   test:
     docker:
       - image: cimg/base:2023.03
+    environment:
+      CIRCLE_REPOSITORY_URL: git@github.com:shashank-maker-co/demo-test.git
     steps:
       - checkout
       - run: echo "this is the test job"
-
-# Orchestrate our job run sequence
 workflows:
   build_and_test:
     jobs:
       - build
-      - test
+      - test:
+          requires:
+            - build
