@@ -17,12 +17,9 @@ jobs:
             npm install
             PORT=$(shuf -i 8081-65535 -n 1)
             echo "Starting server on port $PORT"
-            node app --port $PORT
+            # node app --port $PORT
           environment:
             PORT: 8080
-      - run:
-          name: "Stop web server"
-          command: "sleep 2m && kill $(lsof -t -i:$PORT) || true"
 workflows:
   say-hello-workflow:
     jobs:
