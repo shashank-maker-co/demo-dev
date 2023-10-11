@@ -15,8 +15,13 @@ jobs:
       - run:
           name: Clone test repository
           command: | 
-            git clone https://github.com/shashank-maker-co/demo-test.git
-      - run: echo "this is the test job"
+            git clone --branch main https://github.com/shashank-maker-co/demo-test.git
+      - run:
+          name: "Install dependencies"
+          command: npm install
+      - run:
+          name: "Run tests"
+          command: npx playwright test
 workflows:
   build_and_test:
     jobs:
