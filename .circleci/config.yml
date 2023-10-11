@@ -69,9 +69,6 @@ workflows:
       - run-tests:
           requires:
             - say-hello
-      - deploy:
-          requires:
-            - run-tests
           filters:
             branches:
               only: main
