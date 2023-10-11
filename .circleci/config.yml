@@ -16,12 +16,15 @@ jobs:
     working_directory: ~/demo-test
     steps:
       - run:
-          name: Clone test repository
+          name: "Clone test repository"
           command: | 
             git clone --branch main https://github.com/shashank-maker-co/demo-test.git
       - run:
           name: "Install dependencies"
           command: cd demo-test && npm install
+      - run:
+          name: "Install Playwright Browsers"
+          command: cd demo-test && npx playwright install
       - run:
           name: "Run tests"
           command: cd demo-test && npx playwright test
