@@ -20,6 +20,7 @@ jobs:
             # node app --port $PORT
           environment:
             PORT: 8080
+
   run-tests:
     executor: node/default
     working_directory: ~/demo-test
@@ -40,6 +41,27 @@ jobs:
       - add_ssh_keys:
           fingerprints:
             - "SHA256:oRlyzBevSnWyCSreaZjRojcHPnshLH4gf9asiDRz3F4"
+
+  deploy:
+    executor: node/default
+    working_directory: ~/repo
+    environment:
+      AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
+      AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
+      AWS_DEFAULT_REGION: us-west-2
+    steps:
+      - checkout
+      - run:
+          name: "Install AWS CLI"
+          command: |
+            sudo apt-get update
+            sudo apt-get install -y python3-pip
+            sudo pip3 install awscli
+      - run:
+          name: "Deploy to AWS"
+          command: |
+            aws s3 sync ./dist s3://my-bucket --delete
+
 workflows:
   say-hello-workflow:
     jobs:
@@ -47,3 +69,9 @@ workflows:
       - run-tests:
           requires:
             - say-hello
+      - deploy:
+          requires:
+            - run-tests
+          filters:
+            branches:
+              only: main
