@@ -20,16 +20,12 @@ jobs:
             # node app --port $PORT
           environment:
             PORT: 8080
-      - run:
-          name: "Set CIRCLE_REPOSITORY_URL environment variable"
-          command: echo "export CIRCLE_REPOSITORY_URL=git@github.com:shashank-maker-co/demo-test.git" >> $BASH_ENV
   run-tests:
     executor: node/default
     working_directory: ~/demo-test
+    environment:
+      CIRCLE_REPOSITORY_URL: git@github.com:shashank-maker-co/demo-test.git
     steps:
-      - run:
-          name: "Set CIRCLE_REPOSITORY_URL environment variable"
-          command: echo "export CIRCLE_REPOSITORY_URL=git@github.com:shashank-maker-co/demo-test.git" >> $BASH_ENV
       - checkout:
           git:
             url: https://github.com/shashank-maker-co/demo-test.git
@@ -44,9 +40,6 @@ jobs:
       - add_ssh_keys:
           fingerprints:
             - "SHA256:oRlyzBevSnWyCSreaZjRojcHPnshLH4gf9asiDRz3F4"
-      - run:
-          name: "Set CIRCLE_REPOSITORY_URL environment variable"
-          command: echo "export CIRCLE_REPOSITORY_URL=git@github.com:shashank-maker-co/demo-test.git" >> $BASH_ENV
 workflows:
   say-hello-workflow:
     jobs:
