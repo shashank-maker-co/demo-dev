@@ -26,9 +26,9 @@ jobs:
           name: "Install Playwright Browsers"
           command: cd demo-test && sudo npx playwright install-deps     
       - run:
-          name: "Run tests"
+          name: "Run tesasdasdts"
           command: cd demo-test && npx playwright install
-     - run:
+      - run:
           name: "Run tests"
           command: cd demo-test && npx playwright test
 workflows:
