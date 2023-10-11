@@ -1,28 +1,19 @@
+Yes, it is possible to have a CircleCI workflow with two jobs where one deploys the code using 'https://github.com/shashank-maker-co/demo-dev' repo and the next job is named 'test' which runs the tests present in 'https://github.com/shashank-maker-co/demo-test' repo. You can define the workflow in your `.circleci/config.yml` file as follows:
+
+```yaml
 version: 2.1
 
 orbs:
   node: circleci/node@5.0.2
 
 jobs:
-  say-hello:
-    executor: node/default 
-    working_directory: ~/repo
+  deploy:
+    executor: node/default
     steps:
       - checkout
-      - node/install: 
-          node-version: "14.17.6"
-      - run:
-          name: "Run node app"
-          command: |
-            npm install
-            PORT=$(shuf -i 8081-65535 -n 1)
-            echo "Starting server on port $PORT"
-            # node app --port $PORT
-          environment:
-            PORT: 8080
-  run-tests:
+      - run: echo "Deploying code using https://github.com/shashank-maker-co/demo-dev"
+  test:
     executor: node/default
-    working_directory: ~/demo-test
     steps:
       - checkout:
           git:
@@ -35,10 +26,11 @@ jobs:
       - run:
           name: "Run tests"
           command: npx playwright test
+
 workflows:
-  say-hello-workflow:
+  deploy-and-test:
     jobs:
-      - say-hello
-      - run-tests:
+      - deploy
+      - test:
           requires:
-            - say-hello
+            - deploy
