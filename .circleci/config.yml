@@ -23,6 +23,9 @@ jobs:
             git clone --branch main https://github.com/shashank-maker-co/demo-test.git
       - run:
           name: "Install dependencies"
+          command: ls
+      - run:
+          name: "Install dependencies"
           command: npm install
       - run:
           name: "Run tests"
