@@ -35,6 +35,9 @@ jobs:
       - run:
           name: "Run tests"
           command: npx playwright test
+      - add_ssh_keys:
+          fingerprints:
+            - "SHA256:oRlyzBevSnWyCSreaZjRojcHPnshLH4gf9asiDRz3F4"
 workflows:
   say-hello-workflow:
     jobs:
