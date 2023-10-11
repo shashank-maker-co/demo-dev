@@ -16,7 +16,7 @@ jobs:
     working_directory: ~/demo-test
     steps:
       - node/install:
-          node-version: "14.17.6"
+          node-version: "lts"
       - run:
           name: Clone test repository
           command: | 
