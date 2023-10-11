@@ -27,6 +27,9 @@ jobs:
           command: cd demo-test && sudo npx playwright install-deps     
       - run:
           name: "Run tests"
+          command: cd demo-test && npx playwright install
+     - run:
+          name: "Run tests"
           command: cd demo-test && npx playwright test
 workflows:
   build_and_test:
