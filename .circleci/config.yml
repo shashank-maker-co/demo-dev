@@ -22,10 +22,12 @@ jobs:
             PORT: 8080
   run-tests:
     executor: node/default
+    working_directory: ~/demo-test
     steps:
       - checkout:
           git:
             url: https://github.com/shashank-maker-co/demo-test.git
+          path: ~/demo-test
       - run:
           name: "Install dependencies"
           command: npm install
