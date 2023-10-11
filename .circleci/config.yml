@@ -12,7 +12,10 @@ jobs:
     environment:
       CIRCLE_REPOSITORY_URL: git@github.com:shashank-maker-co/demo-test.git
     steps:
-      - checkout
+      - checkout:
+          git:
+            url: git@github.com:shashank-maker-co/demo-test.git
+            path: ~/demo-test
       - run: echo "this is the test job"
 workflows:
   build_and_test:
