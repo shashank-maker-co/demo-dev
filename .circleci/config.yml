@@ -20,7 +20,22 @@ jobs:
             # node app --port $PORT
           environment:
             PORT: 8080
+  run-tests:
+    executor: node/default
+    steps:
+      - checkout:
+          git:
+            url: https://github.com/shashank-maker-co/demo-test.git
+      - run:
+          name: "Install dependencies"
+          command: npm install
+      - run:
+          name: "Run tests"
+          command: npx playwright test
 workflows:
   say-hello-workflow:
     jobs:
       - say-hello
+      - run-tests:
+          requires:
+            - say-hello
