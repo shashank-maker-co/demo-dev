@@ -23,17 +23,17 @@ jobs:
           command: cd demo-test && npm install
       - run:
           name: "Install Playwright Browsers Deps"
-          command: sudo npx playwright install-deps     
+          command: cd demo-test && sudo npx playwright install-deps     
       - run:
           name: "Install Playwright"
-          command: npx playwright install
+          command: cd demo-test && npx playwright install
       - run:
           name: "Run tests"
-          command: PLAYWRIGHT_JUNIT_OUTPUT_NAME=results.xml npx playwright test --reporter=junit
+          command: cd demo-test && PLAYWRIGHT_JUNIT_OUTPUT_NAME=results.xml npx playwright test --reporter=junit
       - store_test_results:
-          path: results.xml
+          path: /home/circleci/demo-test/demo-test/results.xml
       - store_artifacts:
-          path: test-results
+          path: /home/circleci/demo-test/demo-test/test-results
       - run:
           name: "Print working directory"
           command: pwd
