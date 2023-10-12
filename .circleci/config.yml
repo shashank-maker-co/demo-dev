@@ -20,13 +20,10 @@ jobs:
           command: | 
             git clone --branch main https://github.com/shashank-maker-co/demo-test.git
       - run:
-          name: Download dependency
+          name: RUN CHECKLY TESTS
           environment:
             SECRET_KEY: SECRET_KEY 
-          command: cd demo-test && npm ci
-      - run:
-          name: "Run tests"
-          command: cd demo-test && PLAYWRIGHT_JUNIT_OUTPUT_NAME=results.xml npx playwright test --reporter=junit
+          command: cd demo-test && npx checkly test
       - store_test_results:
           path: /root/demo-test/demo-test/results.xml
       - store_artifacts:
