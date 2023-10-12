@@ -29,13 +29,13 @@ jobs:
           name: "Install Playwright"
           command: cd demo-test && npx playwright install
       - run:
-          name: List directory content
-          command: ls -R
-      - run:
           name: "Run tests"
           command: cd demo-test && npx playwright test --output=results
       - store_test_results:
           path: demo-test/results
+      - run:
+          name: List directory content
+          command: ls -R
 workflows:
   build_and_test:
     jobs:
