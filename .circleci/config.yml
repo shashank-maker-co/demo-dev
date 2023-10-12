@@ -10,36 +10,27 @@ jobs:
       - run: echo "this is the build job"
   test:
     docker:
-      - image: cimg/node:20.8.0
-    environment:
-      CIRCLE_REPOSITORY_URL: git@github.com:shashank-maker-co/demo-test.git
+      - image: mcr.microsoft.com/playwright:v1.27.1-focal
     steps:
       - run:
           name: "Clone test repository"
           command: | 
             git clone --branch main https://github.com/shashank-maker-co/demo-test.git
-      - run:
-          name: "Install dependencies"
-          command: cd demo-test && npm install
-      - run:
-          name: "Install Playwright Browsers Deps"
-          command: cd demo-test && sudo npx playwright install-deps     
-      - run:
-          name: "Install Playwright"
-          command: cd demo-test && npx playwright install
+     - run:
+          name: Download dependency
+          environment:
+            SECRET_KEY: SECRET_KEY 
+          command: npm ci
       - run:
           name: "Run tests"
-          command: cd demo-test && PLAYWRIGHT_JUNIT_OUTPUT_NAME=results.xml npx playwright test --reporter=junit
+          command: PLAYWRIGHT_JUNIT_OUTPUT_NAME=results.xml npx playwright test --reporter=junit
       - store_test_results:
-          path: /home/circleci/demo-test/demo-test/results.xml
+          path: results.xml
       - store_artifacts:
-          path: /home/circleci/demo-test/demo-test/test-results
+          path: test-results
       - run:
           name: "Print working directory"
           command: pwd
-      - run:
-          name: List directory content
-          command: ls -R ~/demo-test
 workflows:
   build_and_test:
     jobs:
