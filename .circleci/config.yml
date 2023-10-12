@@ -36,6 +36,9 @@ jobs:
       - store_artifacts:
           path: /tmp/test-results
       - run:
+          name: "Print working directory"
+          command: pwd
+      - run:
           name: List directory content
           command: ls -R ~/demo-test
 workflows:
