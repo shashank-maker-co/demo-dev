@@ -20,9 +20,12 @@ jobs:
           command: | 
             git clone --branch main https://github.com/shashank-maker-co/demo-test.git
       - run:
-          name: RUN CHECKLY TESTS
+          name: "DOWNLOAD DEPENDENCIES"
           environment:
             SECRET_KEY: SECRET_KEY 
+          command: cd demo-test && npm ci
+      - run:
+          name: "RUN CHECKLY TESTS"
           command: cd demo-test && npx checkly test
       - store_test_results:
           path: /root/demo-test/demo-test/results.xml
