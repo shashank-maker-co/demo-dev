@@ -44,7 +44,7 @@ jobs:
           destination: artifact-file
     - store_artifacts:
           path: /tmp/artifacts
-      - run:
+    - run:
           name: List directory content
           command: ls -R ~/demo-test
 workflows:
