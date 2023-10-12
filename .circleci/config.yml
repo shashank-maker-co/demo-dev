@@ -20,7 +20,7 @@ jobs:
             git clone --branch main https://github.com/shashank-maker-co/demo-test.git
       - run:
           name: "Install dependencies"
-          command: npm install
+          command: cd demo-test && npm install
       - run:
           name: "Install Playwright Browsers Deps"
           command: sudo npx playwright install-deps     
