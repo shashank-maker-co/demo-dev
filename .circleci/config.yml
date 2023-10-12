@@ -28,12 +28,15 @@ jobs:
           name: "Run tests"
           command: cd demo-test && PLAYWRIGHT_JUNIT_OUTPUT_NAME=results.xml npx playwright test --reporter=junit
       - store_test_results:
-          path: /home/circleci/demo-test/demo-test/results.xml
+          path: results.xml
       - store_artifacts:
-          path: /home/circleci/demo-test/demo-test/test-results
+          path: test-results
       - run:
           name: "Print working directory"
           command: pwd
+      - run:
+          name: List directory content
+          command: ls -R ~/demo-test
 workflows:
   build_and_test:
     jobs:
