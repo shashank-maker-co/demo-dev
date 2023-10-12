@@ -30,11 +30,11 @@ jobs:
           command: cd demo-test && npx playwright install
       - run:
           name: "Run tests"
-          command: cd demo-test && npx playwright test
+          command: cd demo-test && PLAYWRIGHT_JUNIT_OUTPUT_NAME=results.xml npx playwright test --reporter=junit
       - store_test_results:
-          path: test-results/
+          path: test-results
       - store_artifacts:
-          path: test-results/
+          path: test-results
       - run:
           name: List directory content
           command: ls -R ~/demo-test
