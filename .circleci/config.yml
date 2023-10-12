@@ -33,8 +33,17 @@ jobs:
           command: cd demo-test && PLAYWRIGHT_JUNIT_OUTPUT_NAME=results.xml npx playwright test --reporter=junit
       - store_test_results:
           path: ~/results.xml
-      - store_artifacts:
-          path: ~/test-results
+      - run:
+          name: Creating Dummy Artifacts
+          command: |
+            echo "my artifact file" > /tmp/art-1;
+            mkdir /tmp/artifacts;
+            echo "my artifact files in a dir" > /tmp/artifacts/art-2;
+    - store_artifacts:
+          path: /tmp/art-1
+          destination: artifact-file
+    - store_artifacts:
+          path: /tmp/artifacts
       - run:
           name: List directory content
           command: ls -R ~/demo-test
