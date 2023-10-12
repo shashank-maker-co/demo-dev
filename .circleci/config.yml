@@ -16,7 +16,7 @@ jobs:
           name: "Clone test repository"
           command: | 
             git clone --branch main https://github.com/shashank-maker-co/demo-test.git
-     - run:
+      - run:
           name: Download dependency
           environment:
             SECRET_KEY: SECRET_KEY 
