@@ -28,9 +28,9 @@ jobs:
           name: "Run tests"
           command: PLAYWRIGHT_JUNIT_OUTPUT_NAME=results.xml npx playwright test --reporter=junit
       - store_test_results:
-          path: /root/demo-test/demo-test/results.xml
+          path: results.xml
       - store_artifacts:
-          path: /root/demo-test/demo-test/test-results
+          path: test-results
 workflows:
   build_and_test:
     jobs:
