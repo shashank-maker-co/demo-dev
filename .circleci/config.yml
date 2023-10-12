@@ -32,12 +32,12 @@ jobs:
           name: "Run tests"
           command: cd demo-test && npx playwright test
       - store_test_results:
-          path: test-results
+          path: test-results/
       - store_artifacts:
-          path: test-results
+          path: test-results/
       - run:
           name: List directory content
-          command: ls -R
+          command: ls -R ~/demo-test
 workflows:
   build_and_test:
     jobs:
