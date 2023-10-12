@@ -26,11 +26,17 @@ jobs:
           command: cd demo-test && npm ci
       - run:
           name: "Run tests"
-          command: PLAYWRIGHT_JUNIT_OUTPUT_NAME=results.xml npx playwright test --reporter=junit
+          command: cd demo-test && PLAYWRIGHT_JUNIT_OUTPUT_NAME=results.xml npx playwright test --reporter=junit
       - store_test_results:
-          path: results.xml
+          path: /root/demo-test/demo-test/results.xml
       - store_artifacts:
-          path: test-results
+          path: /root/demo-test/demo-test/test-results
+      - run:
+          name: "Print working directory"
+          command: pwd
+      - run:
+          name: List directory content
+          command: ls -R ~/demo-test
 workflows:
   build_and_test:
     jobs:
