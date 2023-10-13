@@ -20,7 +20,7 @@ jobs:
       - run:
           name: "Clone test repository"
           command: | 
-            git clone --branch main https://github.com/makerinc/checks-playwright-pages.git
+            git clone --branch main https://github.com/shashank-maker-co/demo-test.git
       - run:
           name: "DOWNLOAD DEPENDENCIES"
           environment:
