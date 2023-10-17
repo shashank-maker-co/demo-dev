@@ -30,8 +30,8 @@ jobs:
           name: "RUN CHECKLY TESTS"
           command: cd demo-test && npx checkly test --record
       - run:
-          name: Print Output
-          command: echo "This is my output"
+          name: Print URL
+          command: echo "www.google.com"
 workflows:
   build_and_test:
     jobs:
