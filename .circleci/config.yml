@@ -28,7 +28,7 @@ jobs:
           command: cd demo-test && npm ci
       - run:
           name: "RUN CHECKLY TESTS"
-          command: cd demo-test && npx checkly test --record
+          command: cd demo-test && npx checkly test --record --reporter=list
       - run:
           name: Print URL
           command: echo "www.google.com"
