@@ -25,7 +25,7 @@ jobs:
           name: "DOWNLOAD DEPENDENCIES"
           environment:
             SECRET_KEY: SECRET_KEY 
-          command: cd demo-test && npm ci
+          command: cd demo-test
       - run:
           name: "RUN CHECKLY TESTS"
           command: cd demo-test && npx checkly test --record --reporter=list
